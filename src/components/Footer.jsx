@@ -19,7 +19,6 @@ const Footer = () => {
                 </span>
             </div>
 
-            {/* Right side: Copyright & Tagline */}
             <div className="text-sm text-zinc-400">
                 <p>© 2026 FitLog — Workout Library. Train hard, log honest.</p>
             </div>

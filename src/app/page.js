@@ -1,15 +1,14 @@
+import AllProducts from "@/components/AllProducts";
 import Banner from "@/components/Banner";
-import Image from "next/image";
+import { getAllProducts } from "@/library/api";
 
-export default function Home() {
-  return (
-    <div>
-
-       
-        <Banner />
-
-
-    </div>
+export default async function Home() {
+  const products = await getAllProducts();
   
+  return (
+    <div className="bg-zinc-950 min-h-screen text-white">
+        <Banner />
+        <AllProducts products={products} />
+    </div>
   );
 }
