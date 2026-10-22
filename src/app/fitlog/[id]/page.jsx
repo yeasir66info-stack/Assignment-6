@@ -1,16 +1,48 @@
+'use client';
+import React, { use, useState } from 'react';
 import { getSingleProduct } from '@/library/api';
-import React from 'react';
+import { useProductContext } from '@/context/ProductContext';
 
-const DetailsPage = async ({ params }) => {
-    const { id } = await params;
+const DetailsPage = ({ params }) => {
+    const resolvedParams = use(params);
+    const id = resolvedParams?.id;
 
-    const rawData = await getSingleProduct(id);
-    const product = rawData?.data || rawData;
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [toastMessage, setToastMessage] = useState('');
 
-    if (!product) {
+    const { addToBuildList, addToWishList } = useProductContext();
+
+    React.useEffect(() => {
+        if (id) {
+            getSingleProduct(id).then((rawData) => {
+                const foundProduct = rawData?.data || rawData;
+                setProduct(foundProduct);
+                setLoading(false);
+            }).catch(() => {
+                setLoading(false);
+            });
+        }
+    }, [id]);
+
+    const triggerToast = (msg) => {
+        setToastMessage(msg);
+        setTimeout(() => {
+            setToastMessage('');
+        }, 3000);
+    };
+
+    if (loading) {
         return (
             <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center">
                 <p className="text-zinc-400">Loading workout details...</p>
+            </div>
+        );
+    }
+    if (!product) {
+        return (
+            <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center">
+                <p className="text-zinc-400">Workout not found.</p>
             </div>
         );
     }
@@ -33,9 +65,25 @@ const DetailsPage = async ({ params }) => {
         "Press up in a slight arc until elbows lock without bouncing.",
         "Keep shoulder blades pinched and a natural arch in the back."
     ];
+    const handleAddToTodayPlan = () => {
+        addToBuildList(product);
+        triggerToast("Added to today's plan");
+    };
+
+    const handleSaveForLater = () => {
+        addToWishList(product);
+        triggerToast("Saved for later");
+    };
 
     return (
-        <div className="min-h-screen bg-zinc-950 text-white px-4 md:px-12 py-10">
+        <div className="min-h-screen bg-zinc-950 text-white px-4 md:px-12 py-10 relative">
+            
+            {toastMessage && (
+                <div className="fixed bottom-8 right-8 bg-lime-400 text-black font-bold px-5 py-3 rounded-xl shadow-2xl z-50 transition-all animate-bounce">
+                    {toastMessage}
+                </div>
+            )}
+
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                 
                 <div className="w-full bg-[#12141a] border border-zinc-800/80 rounded-3xl p-4 flex justify-center items-center shadow-2xl">
@@ -120,10 +168,16 @@ const DetailsPage = async ({ params }) => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                        <button className="flex-1 bg-lime-400 hover:bg-lime-500 text-black font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 text-sm cursor-pointer">
+                        <button 
+                            onClick={handleAddToTodayPlan}
+                            className="flex-1 bg-lime-400 hover:bg-lime-500 text-black font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 text-sm cursor-pointer"
+                        >
                             <span>📋 Add to today's plan</span>
                         </button>
-                        <button className="flex-1 bg-transparent hover:bg-zinc-900 text-white border border-zinc-700 font-semibold py-3.5 px-6 rounded-xl transition-all flex items-center justify-center gap-2 text-sm cursor-pointer">
+                        <button 
+                            onClick={handleSaveForLater}
+                            className="flex-1 bg-transparent hover:bg-zinc-900 text-white border border-zinc-700 font-semibold py-3.5 px-6 rounded-xl transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
+                        >
                             <span>🔖 Save for later</span>
                         </button>
                     </div>

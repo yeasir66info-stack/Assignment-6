@@ -1,11 +1,14 @@
-import React from 'react';
+import AllProducts from "@/components/AllProducts";
+import Banner from "@/components/Banner";
+import { getAllProducts } from "@/library/api";
 
-const WorkoutPage = () => {
-    return (
-        <div>
-            <h2>This ia workout page </h2>
-        </div>
-    );
-};
-
-export default WorkoutPage;
+export default async function WorkoutPage() {
+  const products = await getAllProducts();
+  
+  return (
+    <div className="bg-zinc-950 min-h-screen text-white">
+        <Banner />
+        <AllProducts products={products} />
+    </div>
+  );
+}

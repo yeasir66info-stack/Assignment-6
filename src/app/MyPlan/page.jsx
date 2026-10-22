@@ -1,10 +1,16 @@
+import MyPlan from '@/components/MyPlan';
 import React from 'react';
 
 const PlanPage = () => {
     return (
-        <div>
-            <h2>This is my plan page </h2>
-        </div>
+                <div>
+
+                  
+        
+                <MyPlan />
+
+            </div>
+        
     );
 };
 

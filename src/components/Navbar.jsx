@@ -1,10 +1,11 @@
-
+'use client';
 import React from 'react';
 import Link from 'next/link';
 import NavLinks from './NavLinks';
+import { useProductContext } from '@/context/ProductContext';
 
 const Navbar = () => {
-    
+    const { buildList, wishList } = useProductContext();
     const navItems = (
         <>
             <li>
@@ -41,7 +42,7 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <Link href="/" className="flex items-center gap-2 text-white hover:opacity-80 transition-all">
+                <Link href="/workouts" className="flex items-center gap-2 text-white hover:opacity-80 transition-all">
                     <span className="text-xl font-extrabold tracking-wider text-white">FITLOG</span>
                 </Link>
             </div>
@@ -53,17 +54,18 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-end w-auto flex items-center gap-6 text-sm">
+               
                 <Link href="/my-plan" className="flex items-center gap-2 font-medium text-zinc-300 hover:text-white transition-all">
                     <span>Plan</span>
                     <span className="w-5 h-5 bg-lime-400 text-black text-xs font-bold rounded-full flex items-center justify-center">
-                        0
+                        {buildList.length}
                     </span>
                 </Link>
 
-                <Link href="/saved" className="flex items-center gap-2 font-medium text-zinc-300 hover:text-white transition-all">
+                <Link href="/my-plan" className="flex items-center gap-2 font-medium text-zinc-300 hover:text-white transition-all">
                     <span>Saved</span>
                     <span className="w-5 h-5 border border-zinc-700 text-zinc-400 text-xs font-semibold rounded-full flex items-center justify-center">
-                        0
+                        {wishList.length}
                     </span>
                 </Link>
             </div>
@@ -72,3 +74,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
