@@ -5,7 +5,7 @@ import { useProductContext } from '@/context/ProductContext';
 
 const MyPlanPage = () => {
     const [activeTab, setActiveTab] = useState('today');
-    const { buildList, wishList, removeFromBuildList, removeFromWishList } = useProductContext();    
+    const { buildList, wishList, removeFromBuildList, removeFromWishList } = useProductContext();
     const currentList = activeTab === 'today' ? buildList : wishList;
     const totalExercises = currentList.length;
 
@@ -60,8 +60,8 @@ const MyPlanPage = () => {
                         <button
                             onClick={() => setActiveTab('today')}
                             className={`px-5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'today'
-                                    ? 'bg-zinc-800 text-white shadow'
-                                    : 'text-zinc-400 hover:text-white'
+                                ? 'bg-zinc-800 text-white shadow'
+                                : 'text-zinc-400 hover:text-white'
                                 }`}
                         >
                             Today's Plan
@@ -69,8 +69,8 @@ const MyPlanPage = () => {
                         <button
                             onClick={() => setActiveTab('saved')}
                             className={`px-5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'saved'
-                                    ? 'bg-zinc-800 text-white shadow'
-                                    : 'text-zinc-400 hover:text-white'
+                                ? 'bg-zinc-800 text-white shadow'
+                                : 'text-zinc-400 hover:text-white'
                                 }`}
                         >
                             Saved
@@ -97,7 +97,7 @@ const MyPlanPage = () => {
                                 </p>
                             </div>
                             <Link
-                                href="/"
+                                href="/Workouts"
                                 className="bg-[#ccff00] hover:bg-[#b3e600] text-black font-extrabold text-xs uppercase px-6 py-3.5 rounded-xl transition-all shadow-lg inline-block cursor-pointer tracking-wider"
                             >
                                 Go to workouts
@@ -148,8 +148,8 @@ const MyPlanPage = () => {
                                                 </button>
                                             )}
                                             <button
-                                                onClick={() =>
-                                                    activeTab === 'today'
+                                                onClick={() =>  activeTab === 'today'
+                                                   
                                                         ? removeFromBuildList(item.id)
                                                         : removeFromWishList(item.id)
                                                 }
@@ -172,3 +172,6 @@ const MyPlanPage = () => {
 };
 
 export default MyPlanPage;
+
+
+

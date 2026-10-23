@@ -55,14 +55,14 @@ const Navbar = () => {
 
             <div className="navbar-end w-auto flex items-center gap-6 text-sm">
                
-                <Link href="/my-plan" className="flex items-center gap-2 font-medium text-zinc-300 hover:text-white transition-all">
+                <Link href="/MyPlan" className="flex items-center gap-2 font-medium text-zinc-300 hover:text-white transition-all cursor-pointer">
                     <span>Plan</span>
                     <span className="w-5 h-5 bg-lime-400 text-black text-xs font-bold rounded-full flex items-center justify-center">
                         {buildList.length}
                     </span>
                 </Link>
 
-                <Link href="/my-plan" className="flex items-center gap-2 font-medium text-zinc-300 hover:text-white transition-all">
+                <Link href="/MyPlan" className="flex items-center gap-2 font-medium text-zinc-300 hover:text-white transition-all cursor-pointer">
                     <span>Saved</span>
                     <span className="w-5 h-5 border border-zinc-700 text-zinc-400 text-xs font-semibold rounded-full flex items-center justify-center">
                         {wishList.length}
@@ -74,5 +74,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
