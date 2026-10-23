@@ -42,7 +42,7 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <Link href="/workouts" className="flex items-center gap-2 text-white hover:opacity-80 transition-all">
+                <Link href="/Workouts" className="flex items-center gap-2 text-white hover:opacity-80 transition-all">
                     <span className="text-xl font-extrabold tracking-wider text-white">FITLOG</span>
                 </Link>
             </div>
